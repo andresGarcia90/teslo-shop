@@ -1,6 +1,7 @@
 export * from './not-found/PageNotFound';
 export * from './product/size-selector'
 export * from './product/product-slideshow/product-slideshow'
+export * from './product/product-slideshow/mobile-product-slideshow'
 export * from './product/quantity-selector'
 export * from './products/product-grid/ProductGrid'
 export * from './products/product-grid/ProductGridItem'

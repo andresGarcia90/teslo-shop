@@ -1,4 +1,4 @@
-import { SizeSelector, QuantitySelector, ProductSlideshow } from '@/components';
+import { SizeSelector, QuantitySelector, ProductMobileSlideshow, ProductSlideshow } from '@/components';
 import { titleFont } from '@/config/fonts';
 import { initialData } from '@/seed/seed';
 import { notFound } from 'next/navigation';
@@ -20,9 +20,10 @@ const ProductPage = ({ params }: Props ) => {
   
   return (
     <div className="mt-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-3">
-      {/* Slideshow */}
+      {/* Slideshow DK and MB*/}
       <div className="col-span-1 md:col-span-2 bg-gray-200">
-        <ProductSlideshow images={product.images} title={product.title}/>
+        <ProductSlideshow images={product.images} title={product.title} className='hidden md:block' />
+        <ProductMobileSlideshow images={product.images} title={product.title} className='block md:hidden'/>
       </div>
 
       {/* Detalles */}
