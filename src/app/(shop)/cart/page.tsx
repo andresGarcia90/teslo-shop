@@ -14,7 +14,7 @@ const CartPage = () => {
               ))}
             </div>
             {/* <CartProduct product={firstProduct}/> */}
-            <OrderSummary />
+            <OrderSummary next='Checkout' nextStep='/checkout/shipping-address'/>
           </div>
       </div>
     </div>

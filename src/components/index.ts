@@ -1,4 +1,5 @@
 export * from './cart/OrderSummary'
+export * from './cart/AddressSummary'
 export * from './not-found/PageNotFound';
 export * from './product/cart-product/CartProduct'
 export * from './product/product-slideshow/mobile-product-slideshow'
