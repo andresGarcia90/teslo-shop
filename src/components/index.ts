@@ -2,6 +2,7 @@ export * from './cart/AddressSummary'
 export * from './cart/OrderSummary'
 export * from './footer/Footer'
 export * from './not-found/PageNotFound';
+export * from './pagination/Pagination';
 export * from './product/cart-product/CartProduct'
 export * from './product/product-slideshow/mobile-product-slideshow'
 export * from './product/product-slideshow/product-slideshow'
