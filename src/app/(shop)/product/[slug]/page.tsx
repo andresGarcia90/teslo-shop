@@ -1,6 +1,8 @@
-import { SizeSelector, QuantitySelector, ProductMobileSlideshow, ProductSlideshow } from '@/components';
+export const revalidate = 604800; //7 días
+
+import { getProductBySlug } from '@/app/actions/products/product-slug';
+import { SizeSelector, QuantitySelector, ProductMobileSlideshow, ProductSlideshow, StockLabel } from '@/components';
 import { titleFont } from '@/config/fonts';
-import { initialData } from '@/seed/seed';
 import { notFound } from 'next/navigation';
 import React from 'react'
 
@@ -10,12 +12,10 @@ interface Props{
   }
 }
 
-const ProductPage = ({ params }: Props ) => {
-  console.log(params.slug);
+const ProductPage = async ({ params }: Props ) => {
   const { slug } = params;
-  const product = initialData.products.find(product => product.slug === slug);
+  const product = await getProductBySlug({ slug });
   
-
   if(!product) notFound()
   
   return (
@@ -26,8 +26,10 @@ const ProductPage = ({ params }: Props ) => {
         <ProductMobileSlideshow images={product.images} title={product.title} className='block md:hidden'/>
       </div>
 
+
       {/* Detalles */}
       <div className="col-span-1 px-5">
+        <StockLabel slug={slug} />
         <div className={`${titleFont.className} antialiased font-bold text-xl`}>
           {product.title}
         </div>

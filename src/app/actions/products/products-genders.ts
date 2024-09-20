@@ -1,3 +1,5 @@
+'use server';
+
 import { Category, Type } from "@/interfaces";
 import prisma from "@/lib/prisma";
 
