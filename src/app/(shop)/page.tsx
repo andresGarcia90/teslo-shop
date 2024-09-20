@@ -10,7 +10,7 @@ interface Props {
 const ShopPage = async ({ searchParams }: Props) => {
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const { products, currentPage, totalPages } = await getPaginatedProducts({ page });
+  const { products, totalPages } = await getPaginatedProducts({ page });
 
   if (!products || products.length === 0) {
     redirect('/');
@@ -20,7 +20,7 @@ const ShopPage = async ({ searchParams }: Props) => {
   return (
     <main className="min-h-screen px-5">
       <Title title="Testo Shop" subtitle="All the products" className="mb-2" />
-      <ProductGrid products={products} currentPage={currentPage} totalPages={totalPages} />
+      <ProductGrid products={products} totalPages={totalPages} />
     </main>
   );
 };

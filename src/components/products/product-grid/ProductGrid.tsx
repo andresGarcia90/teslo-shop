@@ -4,11 +4,10 @@ import { Pagination } from "./../../index"
 
 interface Props {
   products: Product[],
-  currentPage?: number;
-  totalPages?: number;
+  totalPages: number;
 
 }
-export const ProductGrid = ({ products, currentPage, totalPages }: Props) => {
+export const ProductGrid = ({ products, totalPages }: Props) => {
   return (
     <div className="flex flex-col items-center mb-14">
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 mb-7">
@@ -16,7 +15,7 @@ export const ProductGrid = ({ products, currentPage, totalPages }: Props) => {
           <ProductGridItem key={product.slug} product={product} />
         ))}
       </div>
-      <Pagination currentPage={currentPage} totalPages={totalPages} />
+      <Pagination totalPages={totalPages} />
     </div>
   )
 }
