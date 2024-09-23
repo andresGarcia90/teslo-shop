@@ -1,6 +1,6 @@
 export const revalidate = 604800; //7 días
 
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata } from 'next';
 import { titleFont } from '@/config/fonts';
 
 import { getProductBySlug } from '@/app/actions/products/product-slug';
@@ -8,8 +8,6 @@ import { getProductBySlug } from '@/app/actions/products/product-slug';
 import { notFound } from 'next/navigation';
 
 import {
-  SizeSelector,
-  QuantitySelector,
   ProductMobileSlideshow,
   ProductSlideshow,
   StockLabel,
