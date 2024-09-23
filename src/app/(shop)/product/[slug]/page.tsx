@@ -14,6 +14,7 @@ import {
   ProductSlideshow,
   StockLabel,
 } from '@/components';
+import { AddToCart } from './ui/AddToCart';
 
 interface Props {
   params: {
@@ -73,15 +74,7 @@ const ProductPage = async ({ params }: Props) => {
         </div>
         <p className="text-lg mb-5">${product.price}</p>
 
-        {/* selector de tallas */}
-        <SizeSelector
-          allSizes={product.sizes}
-          selectedSize={product.sizes[0]}
-        />
-        {/* selector de cantidad */}
-        <QuantitySelector quantity={1} />
-        {/* Botones */}
-        <button className="btn-primary my-5">Add to cart</button>
+        <AddToCart product={product}/>
 
         {/* Descripción */}
         <h3 className="font-bold text-sm mb-3">Description</h3>

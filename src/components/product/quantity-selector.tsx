@@ -1,23 +1,21 @@
-'use client'
-import { useState } from 'react'
 import { IoRemoveOutline, IoAddOutline } from 'react-icons/io5'
-
 interface Props {
-  quantity: number
-}
-export const QuantitySelector = ({quantity}: Props) => {
-  const [count, setCount] = useState(quantity);
+  quantity: number,
 
-  const onQuantityChange = (value: number) => {
-    if (count + value < 1) return;
-    setCount( count + value )
+  onQuantityChange: (value: number) => void
+}
+export const QuantitySelector = ({quantity, onQuantityChange}: Props) => {
+
+  const onValueChange = (value: number) => {
+    if (quantity + value < 1) return;
+    onQuantityChange(quantity + value)
   }
 
   return (
     <div className="flex flex-row">
-      <button onClick={() => onQuantityChange(-1)}><IoRemoveOutline size={20} /></button>
-      <span className='w-20 mx-3 px-5 bg-gray-100 text-center'>{count}</span>
-      <button onClick={() => onQuantityChange(+1)}><IoAddOutline size={20}/></button>
+      <button onClick={() => onValueChange(-1)}><IoRemoveOutline size={20} /></button>
+      <span className='w-20 mx-3 px-5 bg-gray-100 text-center'>{quantity}</span>
+      <button onClick={() => onValueChange(+1)}><IoAddOutline size={20}/></button>
 
     </div>
     
