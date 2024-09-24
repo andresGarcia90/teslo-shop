@@ -12,7 +12,7 @@ export const AddToCart = ({ product }: Props) => {
   const [quantity, setQuantity] = useState(1);
   const [posted, setPosted] = useState(false);
 
-  const {cart, addToCart} = useCartStore();
+  const { addToCart } = useCartStore();
 
   const onAddToCart = () => {
     setPosted(true);
@@ -24,8 +24,9 @@ export const AddToCart = ({ product }: Props) => {
     setQuantity(1);
   };
 
-  console.log(cart);
-  
+  const handleSetQuantity = (value: number) => {
+    setQuantity(quantity + value);
+  }
 
   return (
     <>
@@ -38,7 +39,7 @@ export const AddToCart = ({ product }: Props) => {
         onSelectedSize={setSize}
       />
       {/* selector de cantidad */}
-      <QuantitySelector quantity={quantity} onQuantityChange={setQuantity} />
+      <QuantitySelector quantity={quantity} onQuantityChange={handleSetQuantity} />
       {/* Botones */}
       <button className="btn-primary my-5" onClick={onAddToCart}>
         Add to cart

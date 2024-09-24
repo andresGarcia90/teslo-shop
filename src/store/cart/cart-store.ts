@@ -5,7 +5,9 @@ import { persist } from 'zustand/middleware';
 interface State {
   cart: CartProduct[];
   addToCart: (product: CartProduct) => void;
+  removeItem: (product: CartProduct) => void;
   getTotalItems: () => number;
+  getTotalPrice: () => number;
 }
 
 export const useCartStore = create<State>()(
@@ -18,6 +20,11 @@ export const useCartStore = create<State>()(
         const { cart } = get();
         return cart.reduce((total, item) => total + item.quantity, 0)
       },
+      getTotalPrice: () => {
+        const { cart } = get();
+        return cart.reduce((total, item) => total + item.price * item.quantity, 0)
+      },
+
       addToCart: (product: CartProduct) => {
         const { cart } = get();
 
@@ -40,6 +47,13 @@ export const useCartStore = create<State>()(
         });
         set({ cart: updatedCart });
       },
+      removeItem: (product: CartProduct) => {
+        const { cart } = get();
+        const updatedCart = cart.filter(
+          (item) => item.slug !== product.slug || item.size !== product.size
+        );
+        set({ cart: updatedCart });
+      }
     }),
     { name: 'cart-storage' }
   )

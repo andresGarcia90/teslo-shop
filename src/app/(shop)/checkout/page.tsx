@@ -1,8 +1,13 @@
+'use client';
 import { CartProduct, OrderSummary, Title } from '@/components'
 import { initialData } from '@/seed/seed';
+import { useCartStore } from '@/store/index';
 
 const CheckoutPage = () => {
   const products = initialData.products.slice(0, 4);
+  const {cart} = localStorage.getItem('cart-storage') ? JSON.parse(localStorage.getItem('cart-storage')!) : [];
+  console.log("CART ", cart);
+  
   return (
     <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
       <div className="flex flex-col w-[1000px]">

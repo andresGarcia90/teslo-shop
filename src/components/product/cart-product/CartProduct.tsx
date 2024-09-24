@@ -1,17 +1,62 @@
-import { Product } from '@/interfaces';
+import { CartProduct } from '@/interfaces';
 import { substring } from '@/utils';
 import Image from 'next/image';
+import { QuantitySelector } from '../quantity-selector';
+import Link from 'next/link';
 
 interface Props {
-  product: Product;
+  product: CartProduct;
   editable?: boolean;
+  setQuantity: (value: number) => void;
+  onRemoveItem: () => void;
 }
-export const CartProduct = ({ product, editable = true }: Props) => {
+
+export const CartInProductSkeleton = () => {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mb-5">
+    <div className="flex flex-col gap-10">
+      <div className="shadow rounded-md p-4 max-w-sm w-full mx-auto">
+        <div className="animate-pulse flex space-x-4">
+          <div className=" bg-gray-700 h-15 w-10"></div>
+          <div className="flex-1 space-y-6 py-1">
+            <div className="h-2 bg-gray-700 rounded"></div>
+            <div className="space-y-3">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="h-2 bg-gray-700 rounded col-span-2"></div>
+                <div className="h-2 bg-gray-700 rounded col-span-1"></div>
+              </div>
+              <div className="h-2 bg-gray-700 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-10">
+        <div className="shadow rounded-md p-4 max-w-sm w-full mx-auto">
+          <div className="animate-pulse flex space-x-4">
+            <div className=" bg-gray-700 h-15 w-10"></div>
+            <div className="flex-1 space-y-6 py-1">
+              <div className="h-2 bg-gray-700 rounded"></div>
+              <div className="space-y-3">
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="h-2 bg-gray-700 rounded col-span-2"></div>
+                  <div className="h-2 bg-gray-700 rounded col-span-1"></div>
+                </div>
+                <div className="h-2 bg-gray-700 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  );
+}
+export const CartInProduct = ({ product, editable = true, setQuantity, onRemoveItem }: Props) => {
   const title = substring(product.title, 30, '...');
   return (
-    <div className="flex flex-row mb-5">
+    <div className="flex flex-row grow  mb-5">
       <Image
-        src={`/products/${product.images[0]}`}
+        src={`/products/${product.image}`}
         alt={product.title}
         width={100}
         height={100}
@@ -21,18 +66,17 @@ export const CartProduct = ({ product, editable = true }: Props) => {
         }}
         className="mr-5 rounded"
       />
-      <div className="grid-rows-3">
-        <div className="mb-2">
-          <span className="font-bold mr-10">{title}</span>
-          <span>${product.price}</span>
-        </div>
-        <div className="grid">
-          <span>{product.tags.join(', ')}</span>
+      <div className="grid-rows-3 grow  ">
+        <div className="flex flex-row justify-between mb-2">
+          <Link href={`/product/${product.slug}`}>
+            <span className="font-bold mr-10 hover:underline">{title}</span>
+          </Link>
+          <span>${product.price * product.quantity}</span>
         </div>
         {editable ? (
           <div className="flex flex-row justify-between">
-            <div>Quantity: 1</div>
-            <div>remove</div>
+            <QuantitySelector quantity={product.quantity} onQuantityChange={setQuantity} />
+            <div className='cursor-pointer' onClick={onRemoveItem}>remove</div>
           </div>
         ) : (
           <div className="grid grid-cols-1">
