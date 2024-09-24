@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h2 align="center">Teslo Site</h2>
+<h3 align="center">An a side project, replica of the Tesla E-commerce</h3>
+<h3 align="center">This project was created for a Next.JS course, see <a href="https://github.com/DevTalles-corp"> DevTalles </a> to create similar projects</h3>
 
-## Getting Started
+---
 
-First, run the development server:
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Tech Stack](#tech-stack)
+3. [Features](#features)
+4. [Quick Start](#quick-start)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Introduction
+This project is a replica of the Tesla e-commerce site, designed to provide a similar online shopping experience to the official Tesla website. Our goal is to offer a user-friendly and attractive platform for users to explore and purchase products in a secure and efficient manner.
+
+---
+
+## <a name="tech-stack">Tech Stack</a>
+- Typescript
+- Next.js
+- Next Auth
+- Zustand
+- TailwindCSS
+- Prisma
+- Postgress
+
+
+----
+
+## <a name="features">Features</a>
+👉**Registration** Create an account on the website.
+
+👉**Login** Log in to an existing account.
+
+👉**Product View** View product details, including description, price, images, etc.
+
+👉**Add to Cart** Add a product to the shopping cart.
+
+👉 **View Cart** View the contents of the shopping cart.
+
+👉 **Remove from**Cart: Remove a product from the shopping cart.
+
+👉 **Update Quantity** Update the quantity of a product in the shopping cart.
+
+
+
+## <a name="quick-start">Quick Start</a>
+
+Cone this repository 
+
+``` bash 
+git clone https://github.com/andresGarcia90/teslo-shop
+cd teslo-shop
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a copy from .env.template or just copy these text into **.env**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+``` bash 
+DB_USER=dbusername
+DB_PASSWORD=dbpassword
+DB_NAME=teslo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+DATABASE_URL="postgresql://dbusername:dbpassword@localhost:5432/teslo?schema=public"
+```
 
-## Learn More
+Install dependencies
+```bash
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+Setting up the database with docker compose
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+docker compose up -d
+```
 
-## Deploy on Vercel
+Create the structure of the data base with Prisma Migrations
+```bash
+npx prisma migrate dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Replicate the data base with Prisma Migrations
+```bash
+npm run seed
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Enjoy 😎
+```bash 
+npm run dev
+```
