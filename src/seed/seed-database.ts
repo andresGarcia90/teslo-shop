@@ -1,7 +1,9 @@
 import prisma from '../lib/prisma';
 import { initialData } from './seed';
 async function main() {
+  console.log('Cleaning database...');
   await Promise.all([
+    prisma.user.deleteMany(),
     prisma.productImages.deleteMany(),
     prisma.product.deleteMany(),
     prisma.category.deleteMany(),
@@ -9,7 +11,13 @@ async function main() {
     .then((result) => console.log('All data base clean', result))
     .catch((err) => console.log(err));
 
-  const { products, categories } = initialData;
+  const { products, categories, users } = initialData;
+
+  console.log("Adding Users...");
+  await prisma.user.createMany({
+    data: users,
+  })
+  
 
   console.log('Adding Categories...');
   const categoriesData = categories.map((category) => ({ name: category }));
@@ -26,6 +34,7 @@ async function main() {
 
   console.log('Adding Products...');
   products.forEach(async (product) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { images, title, type, sizes, ...rest } = product;
     const dbProduct = await prisma.product.create({
       data: {

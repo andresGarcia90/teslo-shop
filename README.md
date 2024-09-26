@@ -21,6 +21,7 @@ This project is a replica of the Tesla e-commerce site, designed to provide a si
 - Typescript
 - Next.js
 - Next Auth
+- React Hook Form
 - Zustand
 - TailwindCSS
 - Prisma
@@ -61,6 +62,9 @@ Create a copy from .env.template or just copy these text into **.env**
 DB_USER=dbusername
 DB_PASSWORD=dbpassword
 DB_NAME=teslo
+
+# openssl rand -base64 32
+AUTH_SECRET=your-secret-key
 
 DATABASE_URL="postgresql://dbusername:dbpassword@localhost:5432/teslo?schema=public"
 ```

@@ -1,25 +1,16 @@
-import type { Metadata } from 'next';
-import { inter } from '@/config/fonts';
+import { auth } from '../auth.config';
+import { redirect } from 'next/navigation';
 
+export default async function RootLayout({ children }: { children: React.ReactNode}) {
 
+  const session = await auth();
+  if ( session?.user ) redirect('/');
 
-import '../globals.css';
-
-
-
-export const metadata: Metadata = {
-  title: 'Teslo | Shop',
-  description: 'Una tienda virtual de productos',
-}
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <main className="flex justify-center">
+      <div className="w-full sm:w-[350px] px-10">
+        { children }
+      </div>
+    </main>
   )
 }
