@@ -1,30 +1,24 @@
 "use client";
+import { useEffect } from 'react';
+
+import { Country } from '@/interfaces';
+import { useForm } from 'react-hook-form';
+import { useAddressStore } from '@/store';
+
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Country } from '@/interfaces';
 
 
-// type FormInput = {
-//   firstName: string
-//   lastName: string
-//   address: string
-//   address2?: string
-//   city: string
-//   country: string
-//   phone: string
-//   rememberAddress: boolean
-// }
 
 
 const AddressSchema = z.object({
-  firstName: z.string().min(2, { message: 'First name must be at least 2 characters' }),
-  lastName: z.string().min(2, { message: 'First name must be at least 2 characters' }),
-  address: z.string().min(2, { message: 'First name must be at least 2 characters' }),
-  address2: z.string().optional(),
+  firstName: z.string().min(2, { message: 'Must be at least 2 characters' }),
+  lastName: z.string().min(2, { message: 'Must be at least 2 characters' }),
+  address: z.string().min(2, { message: 'Must be at least 2 characters' }),
+  address2: z.string().min(2, { message: 'Must be at least 2 characters' }),
   costalCode: z.string().length(4).regex(/^\d+$/, 'Phone number must contain only numbers'),
-  city: z.string().min(2, { message: 'First name must be at least 2 characters' }),
-  country: z.string().min(2, { message: 'First name must be at least 2 characters' }),
+  city: z.string().min(2, { message: 'Must be at least 2 characters' }),
+  country: z.string().min(2, { message: 'Must be at least 2 characters' }),
   phone: z.string().length(10).regex(/^\d+$/, 'Phone number must contain only numbers'),
   rememberAddress: z.boolean(),
 });
@@ -37,15 +31,21 @@ interface Props {
 }
 
 export const AddressForm = ({ countries }: Props) => {
-  const { handleSubmit, register, formState: { errors, isValid } } = useForm<SignUpSchemaType>({ resolver: zodResolver(AddressSchema) });
-
+  const { handleSubmit, register, reset, formState: { errors, isValid } } = useForm<SignUpSchemaType>({ resolver: zodResolver(AddressSchema) });
+  const { setAddress, address } = useAddressStore()
   const onSubmitForm = (data: SignUpSchemaType) => {
-    console.log("HANDLE FORM");
-
-
-    console.log(data, errors, isValid);
-
+    if (!isValid) return;
+    setAddress(data);
   }
+
+  useEffect(() => {
+    console.log(address);
+    
+    if (address.firstName) {
+      reset(address)
+    }
+  }, []);
+  
 
   return (
     <form className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2" onSubmit={handleSubmit(onSubmitForm)}>
@@ -125,7 +125,7 @@ export const AddressForm = ({ countries }: Props) => {
           {...register('country')}
         >
           <option value="">[ Seleccione ]</option>
-          { countries.map( country => 
+          {countries.map(country =>
             <option key={country.id} value={country.id}>{country.name}</option>
           )}
         </select>
