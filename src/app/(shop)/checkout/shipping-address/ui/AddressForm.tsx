@@ -2,6 +2,7 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { Country } from '@/interfaces';
 
 
 // type FormInput = {
@@ -31,8 +32,11 @@ const AddressSchema = z.object({
 type SignUpSchemaType = z.infer<typeof AddressSchema>;
 
 
+interface Props {
+  countries: Country[]
+}
 
-export const AddressForm = () => {
+export const AddressForm = ({ countries }: Props) => {
   const { handleSubmit, register, formState: { errors, isValid } } = useForm<SignUpSchemaType>({ resolver: zodResolver(AddressSchema) });
 
   const onSubmitForm = (data: SignUpSchemaType) => {
@@ -121,8 +125,9 @@ export const AddressForm = () => {
           {...register('country')}
         >
           <option value="">[ Seleccione ]</option>
-          <option value="CRI">Costa Rica</option>
-          <option value="ARG">Argentina</option>
+          { countries.map( country => 
+            <option key={country.id} value={country.id}>{country.name}</option>
+          )}
         </select>
       </div>
 
