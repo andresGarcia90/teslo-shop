@@ -7,6 +7,8 @@ import { useAddressStore } from '@/store';
 
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { setUserAddress } from '@/app/actions';
+import { useSession } from 'next-auth/react';
 
 
 
@@ -16,7 +18,7 @@ const AddressSchema = z.object({
   lastName: z.string().min(2, { message: 'Must be at least 2 characters' }),
   address: z.string().min(2, { message: 'Must be at least 2 characters' }),
   address2: z.string().min(2, { message: 'Must be at least 2 characters' }),
-  costalCode: z.string().length(4).regex(/^\d+$/, 'Phone number must contain only numbers'),
+  postalCode: z.string().length(4).regex(/^\d+$/, 'Phone number must contain only numbers'),
   city: z.string().min(2, { message: 'Must be at least 2 characters' }),
   country: z.string().min(2, { message: 'Must be at least 2 characters' }),
   phone: z.string().length(10).regex(/^\d+$/, 'Phone number must contain only numbers'),
@@ -32,20 +34,31 @@ interface Props {
 
 export const AddressForm = ({ countries }: Props) => {
   const { handleSubmit, register, reset, formState: { errors, isValid } } = useForm<SignUpSchemaType>({ resolver: zodResolver(AddressSchema) });
-  const { setAddress, address } = useAddressStore()
-  const onSubmitForm = (data: SignUpSchemaType) => {
-    if (!isValid) return;
-    setAddress(data);
-  }
+  const { setAddress, address } = useAddressStore();
+
+  const { data: userDataSession } = useSession({ required: true });
 
   useEffect(() => {
     console.log(address);
-    
+
     if (address.firstName) {
       reset(address)
     }
   }, []);
-  
+
+  const onSubmitForm = (data: SignUpSchemaType) => {
+    if (!isValid) return;
+    setAddress(data);
+
+    const { rememberAddress, ...restAddress } = data;
+    if ( rememberAddress ) {
+      setUserAddress(restAddress, userDataSession?.user.id as string );
+    } else {
+      
+    }
+  }
+
+
 
   return (
     <form className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2" onSubmit={handleSubmit(onSubmitForm)}>
@@ -100,9 +113,9 @@ export const AddressForm = ({ countries }: Props) => {
         <input
           type="text"
           className="p-2 border rounded-md bg-gray-200"
-          {...register('costalCode')}
+          {...register('postalCode')}
         />
-        {errors.costalCode && <p className="text-red-500">{errors.costalCode.message}</p>}
+        {errors.postalCode && <p className="text-red-500">{errors.postalCode.message}</p>}
 
       </div>
 

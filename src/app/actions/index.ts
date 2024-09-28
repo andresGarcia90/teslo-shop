@@ -5,3 +5,4 @@ export { getProductBySlug } from './products/product-slug';
 export { getStockByProduct } from './products/stock-per-product';
 export { productsByGender } from './products/products-genders';
 export { registerUser } from './auth/registerUser';
+export { setUserAddress } from './address/set-user-address';

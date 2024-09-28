@@ -83,10 +83,9 @@ model UserAddress {
   lastName        String
   address         String
   address2        String
-  costalCode      String
+  postalCode      String
   city            String
   phone           String
-  rememberAddress Boolean
 
   //Relationships
   country   Country @relation(fields: [countryId], references: [id])
