@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { setUserAddress } from '@/app/actions';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -35,6 +36,7 @@ interface Props {
 export const AddressForm = ({ countries }: Props) => {
   const { handleSubmit, register, reset, formState: { errors, isValid } } = useForm<SignUpSchemaType>({ resolver: zodResolver(AddressSchema) });
   const { setAddress, address } = useAddressStore();
+  const router = useRouter();
 
   const { data: userDataSession } = useSession({ required: true });
 
@@ -47,6 +49,7 @@ export const AddressForm = ({ countries }: Props) => {
   }, []);
 
   const onSubmitForm = (data: SignUpSchemaType) => {
+
     if (!isValid) return;
     setAddress(data);
 
@@ -54,8 +57,10 @@ export const AddressForm = ({ countries }: Props) => {
     if ( rememberAddress ) {
       setUserAddress(restAddress, userDataSession?.user.id as string );
     } else {
-      
+      // await deleteUserAddress(session!.user.id);
     }
+
+    router.push('/checkout');
   }
 
 
