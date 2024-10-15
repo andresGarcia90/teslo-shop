@@ -5,10 +5,11 @@
 ---
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Tech Stack](#tech-stack)
-3. [Features](#features)
-4. [Quick Start](#quick-start)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Quick Start](#quick-start)
 
 ---
 
@@ -56,6 +57,12 @@ git clone https://github.com/andresGarcia90/teslo-shop
 cd teslo-shop
 ```
 
+Create a ssl auth key for Auth.js and adding to AUTH_SECRET
+```
+for example I go to https://www.cryptool.org/en/cto/openssl/
+and run the next command: openssl rand -base64 32
+```
+
 Create a copy from .env.template or just copy these text into **.env**
 
 ``` bash 
@@ -94,4 +101,11 @@ npm run seed
 Enjoy 😎
 ```bash 
 npm run dev
+```
+
+Recomendable user
+```
+name: John Doe
+email: user@mail.com
+password: 123456
 ```

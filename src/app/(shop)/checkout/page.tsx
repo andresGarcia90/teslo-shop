@@ -5,7 +5,7 @@ import { CartConfirmationProduct } from './ui/CartConfirmationProduct';
 
 const CheckoutPage = () => {
   const { cart: productsInCart } = useCartStore();
-
+  
   return (
     <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
       <div className="flex flex-col w-[1000px]">
@@ -16,10 +16,14 @@ const CheckoutPage = () => {
               <CartConfirmationProduct
                 key={`${product.slug}-${product.size}`}
                 product={product}
+                editable={true}
               />
             ))}
           </div>
-          {/* <OrderSummary next='Select Shipping' nextStep='/checkout/shipping-address' /> */}
+          <OrderSummary
+           next='Create Order' 
+           nextStep='/checkout/place-order' 
+           showAddress />
 
         </div>
       </div>

@@ -76,8 +76,8 @@ export const CartConfirmationProduct = ({ product, editable = true }: Props) => 
           </div>
         ) : (
           <div className="grid grid-cols-1">
-            <p>Total${product.price} x 3</p>
-            <p className='font-bold'>Subtotal: ${product.price * 3}</p>
+            <p>${product.price} x 3</p>
+            <p className='font-bold'>Subtotal: ${product.price * product.quantity}</p>
           </div>
         )}
       </div>

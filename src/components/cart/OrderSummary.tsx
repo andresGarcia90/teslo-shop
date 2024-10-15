@@ -1,21 +1,21 @@
 'use client';
 import Link from "next/link";
 import { AddressSummary } from "./AddressSummary";
-import { useCartStore } from "@/store";
+import { useAddressStore, useCartStore } from "@/store";
 
 interface Props {
   nextStep: string,
-  next: string, 
+  next: string,
   showAddress?: boolean
 }
-export const OrderSummary = ({nextStep, next, showAddress}: Props) => {
-  const { cart, getTotalPrice, getTotalItems } = useCartStore();
-
+export const OrderSummary = ({ nextStep, next, showAddress }: Props) => {
+  const { getTotalPrice, getTotalItems } = useCartStore();
+  const { address } = useAddressStore();
   return (
     <div className="bg-white rounded-xl shadow-lg p-7 grid grid-cols-1 place-content-between">
-      {showAddress && 
+      {showAddress &&
         <>
-          <AddressSummary />
+          <AddressSummary address={address} />
           <div className="w-100 h-0.5 rounded bg-gray-200 mb-10" />
         </>
       }
