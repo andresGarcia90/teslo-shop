@@ -1,13 +1,13 @@
 "use client";
 import { useEffect } from 'react';
 
-import { Country } from '@/interfaces';
+import { Address, Country } from '@/interfaces';
 import { useForm } from 'react-hook-form';
 import { useAddressStore } from '@/store';
 
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { setUserAddress } from '@/app/actions';
+import { deleteUserAddress, setUserAddress } from '@/app/actions';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
@@ -30,10 +30,11 @@ type SignUpSchemaType = z.infer<typeof AddressSchema>;
 
 
 interface Props {
-  countries: Country[]
+  countries: Country[];
+  userStoredAddress?: Partial<Address>
 }
 
-export const AddressForm = ({ countries }: Props) => {
+export const AddressForm = ({ countries, userStoredAddress = {} }: Props) => {
   const { handleSubmit, register, reset, formState: { errors, isValid } } = useForm<SignUpSchemaType>({ resolver: zodResolver(AddressSchema) });
   const { setAddress, address } = useAddressStore();
   const router = useRouter();
@@ -55,7 +56,7 @@ export const AddressForm = ({ countries }: Props) => {
     if ( rememberAddress ) {
       setUserAddress(restAddress, userDataSession?.user.id as string );
     } else {
-      // await deleteUserAddress(session!.user.id);
+        deleteUserAddress(userDataSession?.user.id as string);
     }
 
     router.push('/checkout');
