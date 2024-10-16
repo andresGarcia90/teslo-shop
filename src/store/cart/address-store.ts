@@ -11,7 +11,6 @@ interface State {
     city: string
     country: string
     phone: string
-    rememberAddress: boolean
   },
   setAddress: (address: State['address']) => void,
   getAddress: () => State['address'],
@@ -31,7 +30,6 @@ export const useAddressStore = create<State>()(
         city: '',
         country: '',
         phone: '',
-        rememberAddress: false
       },
       setAddress: (address) => set({ address }),
       getAddress: () => get().address,

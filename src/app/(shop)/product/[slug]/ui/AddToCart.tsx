@@ -17,7 +17,6 @@ export const AddToCart = ({ product }: Props) => {
   const onAddToCart = () => {
     setPosted(true);
     if (!size) return;
-    console.log({product, size, quantity});
     addToCart({...product, image: product.images[0], size,quantity});
     setPosted(false);
     setSize(undefined);

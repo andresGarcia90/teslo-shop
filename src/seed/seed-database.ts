@@ -10,6 +10,9 @@ async function main() {
     prisma.product.deleteMany(),
     prisma.category.deleteMany(),
     prisma.country.deleteMany(),
+    prisma.orderAddress.deleteMany(),
+    prisma.orderItem.deleteMany(),
+    prisma.order.deleteMany(),
   ])
     .then((result) => console.log('All data base clean', result))
     .catch((err) => console.log(err));
