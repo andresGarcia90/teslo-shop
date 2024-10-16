@@ -2,6 +2,7 @@
 import { OrderSummary, Title } from '@/components'
 import { useCartStore } from '@/store/index';
 import { CartConfirmationProduct } from './ui/CartConfirmationProduct';
+import { PlaceOrder } from './(checkout)/ui/PlaceOrder';
 
 const CheckoutPage = () => {
   const { cart: productsInCart } = useCartStore();
@@ -20,10 +21,7 @@ const CheckoutPage = () => {
               />
             ))}
           </div>
-          <OrderSummary
-           next='Create Order' 
-           nextStep='/checkout/place-order' 
-           showAddress />
+          <PlaceOrder/>
 
         </div>
       </div>

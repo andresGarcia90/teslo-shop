@@ -1,8 +1,8 @@
 "use server";
 import prisma from "@/lib/prisma";
 
-import { auth } from "@/auth.config";
 import type { Address, Size } from "@/interfaces";
+import { auth } from "@/app/auth.config";
 
 interface ProductToOrder {
   productId: string;
@@ -88,7 +88,7 @@ export const placeOrder = async (
       // Verificar valores negativos en las existencia = no hay stock
       updatedProducts.forEach((product) => {
         if (product.inStock < 0) {
-          throw new Error(`${product.title} no tiene inventario suficiente`);
+          throw new Error(`${product.description} no tiene inventario suficiente`);
         }
       });
 
@@ -144,6 +144,7 @@ export const placeOrder = async (
     }
 
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return {
       ok: false,

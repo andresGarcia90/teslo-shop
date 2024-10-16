@@ -41,8 +41,6 @@ export const AddressForm = ({ countries }: Props) => {
   const { data: userDataSession } = useSession({ required: true });
 
   useEffect(() => {
-    console.log(address);
-
     if (address.firstName) {
       reset(address)
     }

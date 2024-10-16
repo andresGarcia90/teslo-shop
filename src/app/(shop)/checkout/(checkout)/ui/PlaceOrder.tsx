@@ -7,6 +7,7 @@ import clsx from 'clsx';
 // import { placeOrder } from '@/actions';
 import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat } from '@/utils';
+import { placeOrder } from "@/app/actions/order/place-order";
 
 export const PlaceOrder = () => {
 
@@ -38,10 +39,10 @@ export const PlaceOrder = () => {
       size: product.size,
     }))
 
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const {rememberAddress, ...rest} = address;
     //! Server Action
-    // const resp = await placeOrder( productsToOrder, address);
-    const resp = {ok: true, order: { id: '123' }, message: 'ok'};
+    const resp = await placeOrder( productsToOrder, rest);
     if ( !resp.ok ) {
       setIsPlacingOrder(false);
       setErrorMessage(resp.message);
@@ -123,7 +124,9 @@ export const PlaceOrder = () => {
           // href="/orders/123"
           onClick={ onPlaceOrder }
           className={
-            clsx({
+            clsx(
+              "w-full",
+              {
               'btn-primary': !isPlacingOrder,
               'btn-disabled': isPlacingOrder
             })

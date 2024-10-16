@@ -18,8 +18,6 @@ export const StockLabel = ({ slug }: Props ) => {
 
   const getStock = async() => {
     const inStock = await getStockByProduct({ slug });
-    console.log(inStock);
-    
     setStock(inStock ?? 0);
     setIsLoading(false);
   }
